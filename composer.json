@@ -1,0 +1,34 @@
+{
+    "name": "phossa/phossa-http",
+    "license": "MIT",
+    "type": "library",
+    "description": "Implementation of PSR-7",
+    "keywords": ["phossa", "http", "psr-7"],
+    "homepage": "https://github.com/phossa/phossa-http",
+    "authors": [
+        {
+            "name": "Hong Zhang",
+            "homepage": "https://github.com/phossa"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Phossa\\Http\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-0": { "Phossa\\Http\\": "tests/src/" }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "psr/http-message": "~1.0",
+        "phossa/phossa-shared": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "provide": {
+        "psr/http-message-implementation": "1.0"
+    },
+    "archive": {
+        "exclude": ["!vendor", "tests", "*phpunit.xml",  "composer.lock"]
+    }
+}
