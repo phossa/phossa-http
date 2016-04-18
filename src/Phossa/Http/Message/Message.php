@@ -32,10 +32,14 @@ class Message extends MessageAbstract
      */
 
     /**
-     * DB driver not found
+     * Invalid HTTP protocol version "%s"
      */
-    const DB_DRIVER_NOTFOUND        = 1603251436;
+    const HTTP_INVALID_PROTOCOL     = 1604181353;
 
+    /**
+     * Invalid HTTP header or value "%s"
+     */
+    const HTTP_INVALID_HEADER       = 1604181354;
 
     /**#@-*/
 
@@ -43,6 +47,7 @@ class Message extends MessageAbstract
      * {@inheritdoc}
      */
     protected static $messages = [
-        self::DB_DRIVER_NOTFOUND    => 'DB driver not found',
+        self::HTTP_INVALID_PROTOCOL => 'Invalid HTTP protocol version "%s"',
+        self::HTTP_INVALID_HEADER   => 'Invalid HTTP header or value "%s"',
     ];
 }
