@@ -34,12 +34,42 @@ class Message extends MessageAbstract
     /**
      * Invalid HTTP protocol version "%s"
      */
-    const HTTP_INVALID_PROTOCOL     = 1604181353;
+    const URI_INVALID_PROTOCOL      = 1604181353;
 
     /**
      * Invalid HTTP header or value "%s"
      */
-    const HTTP_INVALID_HEADER       = 1604181354;
+    const URI_INVALID_HEADER        = 1604181354;
+
+    /**
+     * Invalid HTTP scheme "%s"
+     */
+    const URI_INVALID_SCHEME        = 1604181355;
+
+    /**
+     * Invalid HTTP host "%s"
+     */
+    const URI_INVALID_HOST          = 1604181356;
+
+    /**
+     * Invalid HTTP port "%s"
+     */
+    const URI_INVALID_PORT          = 1604181357;
+
+    /**
+     * Invalid HTTP URI "%s"
+     */
+    const URI_INVALID_URI           = 1604181358;
+
+    /**
+     * Invalid HTTP PATH "%s"
+     */
+    const URI_INVALID_PATH          = 1604181359;
+
+    /**
+     * Invalid HTTP QUERY "%s"
+     */
+    const URI_INVALID_QUERY         = 1604181360;
 
     /**#@-*/
 
@@ -47,7 +77,13 @@ class Message extends MessageAbstract
      * {@inheritdoc}
      */
     protected static $messages = [
-        self::HTTP_INVALID_PROTOCOL => 'Invalid HTTP protocol version "%s"',
-        self::HTTP_INVALID_HEADER   => 'Invalid HTTP header or value "%s"',
+        self::URI_INVALID_PROTOCOL  => 'Invalid URI protocol version "%s"',
+        self::URI_INVALID_HEADER    => 'Invalid URI header or value "%s"',
+        self::URI_INVALID_SCHEME    => 'Invalid URI scheme "%s"',
+        self::URI_INVALID_HOST      => 'Invalid URI host "%s"',
+        self::URI_INVALID_PORT      => 'Invalid URI port "%s"',
+        self::URI_INVALID_URI       => 'Invalid URI URI "%s"',
+        self::URI_INVALID_PATH      => 'Invalid URI PATH "%s"',
+        self::URI_INVALID_QUERY     => 'Invalid URI QUERY "%s"',
     ];
 }

@@ -12,7 +12,7 @@
  */
 /*# declare(strict_types=1); */
 
-namespace Phossa\Http;
+namespace Phossa\Http\Misc;
 
 use Psr\Http\Message\StreamInterface;
 use Phossa\Http\Message\Message as ErrorMessage;
@@ -73,6 +73,10 @@ trait HttpMessageTrait
      */
     public function withProtocolVersion($version)
     {
+        if ($version === $this->protocol) {
+            return $this;
+        }
+
         // check version
         $allowed = [ '1.0', '1.1' ];
         if (in_array($version, $allowed)) {
@@ -83,8 +87,8 @@ trait HttpMessageTrait
 
         // invalid protocol version
         throw new InvalidArgumentException(
-            ErrorMessage::get(ErrorMessage::HTTP_INVALID_PROTOCOL, $version),
-            ErrorMessage::HTTP_INVALID_PROTOCOL
+            ErrorMessage::get(ErrorMessage::URI_INVALID_PROTOCOL, $version),
+            ErrorMessage::URI_INVALID_PROTOCOL
         );
     }
 
@@ -139,8 +143,8 @@ trait HttpMessageTrait
             !RFC7230::isValidValue($value)
         ) {
             throw new InvalidArgumentException(
-                ErrorMessage::get(ErrorMessage::HTTP_INVALID_HEADER, $name),
-                ErrorMessage::HTTP_INVALID_HEADER
+                ErrorMessage::get(ErrorMessage::URI_INVALID_HEADER, $name),
+                ErrorMessage::URI_INVALID_HEADER
             );
         }
 
@@ -151,7 +155,7 @@ trait HttpMessageTrait
             unset($clone->headers[$clone->header_map[$lower]]);
         }
         $clone->header_map[$lower] = $name;
-        $clone->headers[$name] = is_array($value) ? $value : [ $value ];
+        $clone->headers[$name] = $value;
 
         return $clone;
     }

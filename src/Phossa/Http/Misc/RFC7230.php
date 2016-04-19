@@ -12,7 +12,7 @@
  */
 /*# declare(strict_types=1); */
 
-namespace Phossa\Http;
+namespace Phossa\Http\Misc;
 
 use Phossa\Shared\Pattern\StaticAbstract;
 
