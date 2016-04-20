@@ -15,6 +15,7 @@
 namespace Phossa\Http\Misc;
 
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\MessageInterface;
 use Phossa\Http\Message\Message as ErrorMessage;
 use Phossa\Http\Exception\InvalidArgumentException;
 
@@ -23,6 +24,7 @@ use Phossa\Http\Exception\InvalidArgumentException;
  *
  * @package Phossa\Http
  * @author  Hong Zhang <phossa@126.com>
+ * @see     MessageInterface
  * @version 1.0.0
  * @since   1.0.0 added
  */
@@ -139,8 +141,8 @@ trait HttpMessageTrait
         }
 
         // validate header & value
-        if (!RFC7230::isValidName($name) ||
-            !RFC7230::isValidValue($value)
+        if (!Rfc7230::isValidName($name) ||
+            !Rfc7230::isValidValue($value)
         ) {
             throw new InvalidArgumentException(
                 ErrorMessage::get(ErrorMessage::URI_INVALID_HEADER, $name),
@@ -149,15 +151,7 @@ trait HttpMessageTrait
         }
 
         $clone = clone $this;
-
-        $lower = strtolower($name);
-        if ($clone->hasHeader($name)) {
-            unset($clone->headers[$clone->header_map[$lower]]);
-        }
-        $clone->header_map[$lower] = $name;
-        $clone->headers[$name] = $value;
-
-        return $clone;
+        return $clone->setHeader($name, $value);
     }
 
     /**
@@ -212,5 +206,24 @@ trait HttpMessageTrait
         $clone = clone $this;
         $clone->stream = $body;
         return $clone;
+    }
+
+    /**
+     * Set header
+     *
+     * @param  string $name
+     * @param  string|array $value
+     * @return $this
+     * @access protected
+     */
+    protected function setHeader(/*# string */ $name, $value)
+    {
+        $lower = strtolower($name);
+        if ($this->hasHeader($name)) {
+            unset($this->headers[$this->header_map[$lower]]);
+        }
+        $this->header_map[$lower] = $name;
+        $this->headers[$name] = is_array($value) ? $value : [ $value ];
+        return $this;
     }
 }

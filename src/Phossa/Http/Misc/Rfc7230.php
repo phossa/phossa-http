@@ -24,7 +24,7 @@ use Phossa\Shared\Pattern\StaticAbstract;
  * @version 1.0.0
  * @since   1.0.0 added
  */
-class RFC7230 extends StaticAbstract
+class Rfc7230 extends StaticAbstract
 {
     /**
      * Valid header name ?

@@ -125,11 +125,27 @@ class Uri implements UriInterface
      * @throws InvalidArgumentException
      * @access public
      */
-    public function __construct(/*# string */ $uri = '')
+    public function __construct(/*# string */ $uri = null)
     {
-        if ($uri) {
+        if (is_null($uri)) {
+            $this->createFromGlobals();
+        } else {
             $this->parseUri($uri);
         }
+    }
+
+    /**
+     * Invoke to set the uri
+     *
+     * @param  string $uri
+     * @return $this
+     * @throws InvalidArgumentException
+     * @access public
+     */
+    public function __invoke(/*# string */ $uri)
+    {
+        $this->parseUri($uri);
+        return $this;
     }
 
     /**
@@ -352,14 +368,19 @@ class Uri implements UriInterface
     /**
      * Parse URI
      *
-     * @param  string $uri
+     * @param  string|null $uri
      * @throws InvalidArgumentException
      * @access protected
      */
-    protected function parseUri(/*# string */ $uri)
+    protected function parseUri($uri)
     {
-        $parts = parse_url($uri);
-        if (false === $parts) {
+        // skip
+        if (is_null($uri)) {
+            return;
+        }
+
+        // invalid uri
+        if (!is_string($uri) || false === ($parts = parse_url($uri))) {
             throw new InvalidArgumentException(
                 Message::get(Message::URI_INVALID_URI, $uri),
                 Message::URI_INVALID_URI
@@ -530,5 +551,34 @@ class Uri implements UriInterface
     protected function urlEncodeChar(array $matches)
     {
         return rawurlencode($matches[0]);
+    }
+
+    /**
+     * Create URI object from the PHP GLBOALS
+     *
+     * @access protected
+     */
+    protected function createFromGlobals()
+    {
+        // get scheme
+        $this->scheme = isset($_SERVER['HTTPS']) ? 'https' : 'http';
+
+        // get host
+        if (false !== strpos($_SERVER['HTTP_HOST'], ':')) {
+            list($this->host,) = explode(':', $_SERVER['HTTP_HOST'], 2);
+        } else {
+            $this->host = $_SERVER['HTTP_HOST'];
+        }
+
+        // get port
+        $this->port = $_SERVER['SERVER_PORT'];
+
+        // get path
+        if (false !== strpos($_SERVER['REQUEST_URI'], '?')) {
+            list($this->path, $this->query) =
+                explode('?', $_SERVER['REQUEST_URI'], 2);
+        } else {
+            $this->path = $_SERVER['REQUEST_URI'];
+        }
     }
 }

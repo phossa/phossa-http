@@ -57,19 +57,34 @@ class Message extends MessageAbstract
     const URI_INVALID_PORT          = 1604181357;
 
     /**
-     * Invalid HTTP URI "%s"
+     * Invalid URI "%s"
      */
     const URI_INVALID_URI           = 1604181358;
 
     /**
-     * Invalid HTTP PATH "%s"
+     * Invalid URI path "%s"
      */
     const URI_INVALID_PATH          = 1604181359;
 
     /**
-     * Invalid HTTP QUERY "%s"
+     * Invalid URI query "%s"
      */
     const URI_INVALID_QUERY         = 1604181360;
+
+    /**
+     * Invalid HTTP method "%s"
+     */
+    const HTTP_INVALID_METHOD       = 1604181361;
+
+    /**
+     * Invalid HTTP target "%s"
+     */
+    const HTTP_INVALID_TARGET       = 1604181362;
+
+    /**
+     * Invalid HTTP status code "%s"
+     */
+    const HTTP_INVALID_STATUS       = 1604181362;
 
     /**#@-*/
 
@@ -82,8 +97,11 @@ class Message extends MessageAbstract
         self::URI_INVALID_SCHEME    => 'Invalid URI scheme "%s"',
         self::URI_INVALID_HOST      => 'Invalid URI host "%s"',
         self::URI_INVALID_PORT      => 'Invalid URI port "%s"',
-        self::URI_INVALID_URI       => 'Invalid URI URI "%s"',
-        self::URI_INVALID_PATH      => 'Invalid URI PATH "%s"',
-        self::URI_INVALID_QUERY     => 'Invalid URI QUERY "%s"',
+        self::URI_INVALID_URI       => 'Invalid URI "%s"',
+        self::URI_INVALID_PATH      => 'Invalid URI path "%s"',
+        self::URI_INVALID_QUERY     => 'Invalid URI query "%s"',
+        self::HTTP_INVALID_METHOD   => 'Invalid HTTP method "%s"',
+        self::HTTP_INVALID_TARGET   => 'Invalid HTTP target "%s"',
+        self::HTTP_INVALID_STATUS   => 'Invalid HTTP status code "%s"',
     ];
 }
